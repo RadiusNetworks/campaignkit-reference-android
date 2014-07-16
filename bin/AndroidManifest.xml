@@ -1,44 +1,42 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.campaignkitreference"
-    android:versionCode="1"
-    android:versionName="1.0" >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.radiusnetworks.campaignkitreference">
 
-    <uses-sdk
-        android:minSdkVersion="18"
-        android:targetSdkVersion="19" />
+    <uses-sdk android:minSdkVersion="18" android:targetSdkVersion="19"/>
 
     <!-- minimum permissions for ibeacons -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <!-- gives permission to wake up app long enough to send campaign request while app is in background (every 5 min) -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     
-    <application
-        android:name="com.radiusnetworks.campaignkitreference.MyApplication"
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name="com.radiusnetworks.campaignkitreference.MainActivity"
-            android:label="@string/app_name" >
+    <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="com.radiusnetworks.campaignkitreference.MyApplication" android:theme="@style/AppTheme">
+        <activity android:label="@string/app_name" android:name="com.radiusnetworks.campaignkitreference.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         
         
-        <activity
-            android:name="com.radiusnetworks.campaignkitreference.DetailActivity"
-            android:label="@string/title_activity_detail"
-            android:parentActivityName="com.radiusnetworks.campaignkitreference.MainActivity" >
+        <activity android:label="@string/title_activity_detail" android:name="com.radiusnetworks.campaignkitreference.DetailActivity" android:parentActivityName="com.radiusnetworks.campaignkitreference.MainActivity">
         </activity>
+    <service android:enabled="true" android:exported="true" android:isolatedProcess="false" android:label="iBeacon" android:name="com.radiusnetworks.ibeacon.service.IBeaconService">
+    </service>
+
+    <service android:enabled="true" android:name="com.radiusnetworks.ibeacon.IBeaconIntentProcessor">
+    </service>
+		<receiver android:name="com.radiusnetworks.proximity.ibeacon.startup.StartupBroadcastReceiver">  
+		    <intent-filter>  
+		        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+		    </intent-filter>
+		</receiver>
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 </manifest>

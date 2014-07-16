@@ -1,7 +1,7 @@
 package com.radiusnetworks.campaignkitreference;
 
 
-import com.example.campaignkitreference.R;
+import com.radiusnetworks.campaignkitreference.R;
 import com.radiusnetworks.campaignkit.Campaign;
 
 

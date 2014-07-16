@@ -19,10 +19,10 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.campaignkitreference.R;
-import com.radiusnetworks.campaignkit.Campaign;
 import com.radiusnetworks.campaignkitreference.DetailActivity;
 import com.radiusnetworks.campaignkitreference.MyApplication;
+import com.radiusnetworks.campaignkitreference.R;
+import com.radiusnetworks.campaignkit.Campaign;
 import com.radiusnetworks.proximity.ibeacon.IBeaconManager;
 
 /**

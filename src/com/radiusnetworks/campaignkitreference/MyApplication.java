@@ -10,11 +10,11 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
-import com.example.campaignkitreference.R;
+import com.radiusnetworks.campaignkitreference.MainActivity;
+import com.radiusnetworks.campaignkitreference.R;
 import com.radiusnetworks.campaignkit.Campaign;
 import com.radiusnetworks.campaignkit.CampaignKitNotifier;
 import com.radiusnetworks.campaignkit.CampaignKitManager;
-import com.radiusnetworks.campaignkitreference.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Date;

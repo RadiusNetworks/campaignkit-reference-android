@@ -37,7 +37,6 @@ public class DetailActivity extends Activity {
 				if (MyApplication.sightedCampaignArray.get(beaconPosition) != null){
 					Campaign thisCampaign = MyApplication.sightedCampaignArray.get(beaconPosition);
 
-					Log.i(TAG,"campaignid = "+thisCampaign.getId()+". content = "+ thisCampaign.getContent());
 					displayHTMLContent(thisCampaign.getContent());
 
 				}

@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
 	Map<String,TableRow> rowMap = new HashMap<String,TableRow>();
 
 	private boolean _visible = false;
-	private MyApplication _application = (MyApplication) this.getApplication();
+	private static MyApplication _application;
 
 
 

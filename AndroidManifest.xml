@@ -25,7 +25,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.radiusnetworks.campaignkitreference.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,6 +38,7 @@
         <activity
             android:name="com.radiusnetworks.campaignkitreference.DetailActivity"
             android:label="@string/title_activity_detail"
+            android:screenOrientation="portrait"
             android:parentActivityName="com.radiusnetworks.campaignkitreference.MainActivity" >
         </activity>
     </application>

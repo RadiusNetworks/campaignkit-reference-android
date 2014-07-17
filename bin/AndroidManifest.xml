@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     
     <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="com.radiusnetworks.campaignkitreference.MyApplication" android:theme="@style/AppTheme">
-        <activity android:label="@string/app_name" android:name="com.radiusnetworks.campaignkitreference.MainActivity">
+        <activity android:label="@string/app_name" android:name="com.radiusnetworks.campaignkitreference.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -22,7 +22,7 @@
         </activity>
         
         
-        <activity android:label="@string/title_activity_detail" android:name="com.radiusnetworks.campaignkitreference.DetailActivity" android:parentActivityName="com.radiusnetworks.campaignkitreference.MainActivity">
+        <activity android:label="@string/title_activity_detail" android:name="com.radiusnetworks.campaignkitreference.DetailActivity" android:parentActivityName="com.radiusnetworks.campaignkitreference.MainActivity" android:screenOrientation="portrait">
         </activity>
     <service android:enabled="true" android:exported="true" android:isolatedProcess="false" android:label="iBeacon" android:name="com.radiusnetworks.ibeacon.service.IBeaconService">
     </service>

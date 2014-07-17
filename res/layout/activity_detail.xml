@@ -1,22 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.example.android.expandingcells.ExpandingListView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/detail_list_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.radiusnetworks.campaignkitreference.DetailActivity"
-    tools:ignore="MergeRootFrame" >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/activity_horizontal_margin" >
-        
-        
-        <WebView
-            android:id="@+id/contentWV"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </RelativeLayout>
-
-</FrameLayout>
+    tools:context=".DetailActivity" />

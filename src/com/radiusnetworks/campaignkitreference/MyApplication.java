@@ -100,6 +100,10 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 		return sightedCampaignTitles;
 	}
 	
+	public ArrayList<Campaign> getSightedCampaignArray(){
+		return sightedCampaignArray;
+	}
+	
 	public Campaign getCampaignFromList(int positionOnList){
 		if (sightedCampaignArray != null){
 			return sightedCampaignArray.get(positionOnList);

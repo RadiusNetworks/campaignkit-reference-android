@@ -13,15 +13,14 @@
         android:scaleType="centerCrop"
         android:src="@drawable/cafe_bg" />
 
-    <LinearLayout
-        android:id="@+id/listLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom|center_horizontal"
-        android:background="@color/clear"
-        android:clipToPadding="true"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical" >
-    </LinearLayout>
+        <Button
+            android:id="@+id/campaignsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@drawable/button_bg"
+            android:text="Campaigns"
+            android:textSize="22sp"
+            android:visibility="invisible" />
 
 </FrameLayout>

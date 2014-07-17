@@ -13,7 +13,7 @@ import android.webkit.WebView;
 public class DetailActivity extends Activity {
 	protected static final String TAG = "DetailActivity";
 
-	int beaconPosition;
+	//	int beaconPosition;
 	int dw = 0;
 	int dh = 0;
 	int height = 0;
@@ -26,9 +26,23 @@ public class DetailActivity extends Activity {
 			setContentView(R.layout.activity_detail);
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 
-			// Getting position within ListView in MainActivity Activity, 
-			//		to find out what campaign this is associated with.
+			// Getting campaignId
 			Bundle b = getIntent().getExtras();
+			String campaignId = b.getString("campaignId", "");
+			
+			Campaign thisCampaign = ((MyApplication) this.getApplication())._ckManager.getCampaign(campaignId);		
+
+			if (thisCampaign != null){
+				Log.d(TAG,"displaying campaign with id: "+campaignId);
+				
+				//Setting screen title
+				this.setTitle((String) thisCampaign.getTitle());
+				
+				//Setting screen content
+				WebView wv = (WebView) findViewById(R.id.contentWV);
+				wv.loadData(thisCampaign.getContent(), "text/html", null);
+			}
+			/*
 			beaconPosition = b.getInt("beaconPosition", 0);
 			if (MainActivity.listAdapter.getItem(beaconPosition) != null){
 				Log.d(TAG,"displaying beaconPosition = "+beaconPosition);
@@ -41,11 +55,7 @@ public class DetailActivity extends Activity {
 
 				}
 			}
+			 */
 		}catch(Exception e ){e.printStackTrace();}
-	}
-
-	private void displayHTMLContent(String content){
-		WebView wv = (WebView) findViewById(R.id.contentWV);
-		wv.loadData(content, "text/html", null);
 	}
 }

@@ -131,25 +131,24 @@ public class MainActivity extends Activity {
 			try {
 
 				((MainActivity) getActivity()).sendToDetailsScreen(position);
-				//Sending to Details Screen
-				//Intent intent = new Intent();
-				//intent.setClass(getActivity(), DetailActivity.class);
-				//intent.putExtra("beaconPosition", position);
-				//startActivity(intent);
+
 			}catch(Exception e){e.printStackTrace();}
 		}
 	}
 
-	private void sendToDetailsScreen(Campaign c){
-		sendToDetailsScreen( listAdapter.getPosition(c.getTitle()) );
-	}
-	private void sendToDetailsScreen(int position){
+	private void sendToDetailsScreen(int positionOnList){
 		//Sending to Details Screen
-		Intent intent = new Intent();
-		intent.setClass(this, DetailActivity.class);
-		intent.putExtra("beaconPosition", position);
-		startActivity(intent);
+		sendToDetailsScreen( _application.getCampaignFromList(positionOnList));
 	}
+	private void sendToDetailsScreen(Campaign c){
+		if (c != null){
+			Intent intent = new Intent();
+			intent.setClass(this, DetailActivity.class);
+			intent.putExtra("campaignId", c.getId());
+			startActivity(intent);
+		}
+	}
+
 
 
 
@@ -176,7 +175,7 @@ public class MainActivity extends Activity {
 	}
 
 
-
+	/*
 	public void showAlert(final Campaign c){
 		final String notificationText = "Welcome! "+c.getTitle();
 
@@ -200,7 +199,7 @@ public class MainActivity extends Activity {
 			}
 		});			
 	}
-
+	 */
 	private void verifyBluetooth() {
 
 		try {

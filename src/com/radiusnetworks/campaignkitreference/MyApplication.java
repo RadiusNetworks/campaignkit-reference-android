@@ -55,8 +55,6 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 	public void didFindCampaign(Campaign campaign) {
 		//adding Campaign to sightedCampaignArray, this will force it to be shown on the SightedCampaignList
 		sightedCampaignArray.add(campaign);
-		sightedCampaignArray.add(campaign);
-		sightedCampaignArray.add(campaign);
 
 		//sending notification or alert, depending on whether app is in background or foreground
 		new CampaignNotificationBuilder(_mainActivity, campaign)

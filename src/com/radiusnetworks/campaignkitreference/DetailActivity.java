@@ -2,30 +2,22 @@ package com.radiusnetworks.campaignkitreference;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
-import com.example.android.expandingcells.CustomArrayAdapter;
-import com.example.android.expandingcells.ExpandableListItem;
-import com.example.android.expandingcells.ExpandingListView;
+import com.example.android.common.activities.SampleActivityBase;
+import com.example.android.slidingtabsbasic.SlidingTabsBasicFragment;
+import com.example.android.slidingtabscolors.SlidingTabsColorsFragment;
 import com.radiusnetworks.campaignkitreference.R;
 import com.radiusnetworks.campaignkit.Campaign;
 
 
-import android.app.Activity;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.webkit.WebView;
-import android.widget.ArrayAdapter;
 
-public class DetailActivity extends Activity {
+public class DetailActivity extends FragmentActivity {
 	protected static final String TAG = "DetailActivity";
-
-
-	private final int CELL_DEFAULT_HEIGHT = 200;
-
-	private ExpandingListView mListView;
+	public static final String KEY_CAMPAIGN_ID = "campaignId";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,22 +26,10 @@ public class DetailActivity extends Activity {
 			setContentView(R.layout.activity_detail);
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 
-			// Getting campaignId
-			Bundle b = getIntent().getExtras();
-			String campaignId = b.getString("campaignId", "");
-
-			if (campaignId != ""){
-				Campaign thisCampaign = ((MyApplication) this.getApplication())._ckManager.getCampaign(campaignId);		
-				if (thisCampaign != null){
-
-					//TODO: expand list at thisCampaign and autoScroll to it
-				}
-			}
-
-			refreshList();
+			
+			refreshList(getIntent().getExtras());
 
 			
-
 		}catch(Exception e ){e.printStackTrace();}
 	}
 	
@@ -58,26 +38,35 @@ public class DetailActivity extends Activity {
 		super.onResume();
 		refreshList();
 	}
-	
 	private void refreshList(){
-		List<ExpandableListItem> mData = new ArrayList<ExpandableListItem>();
+		refreshList(null);
+	}
+
+	private void refreshList(Bundle b){
 		ArrayList<Campaign> campaignArray =  ((MyApplication) this.getApplication()).getSightedCampaignArray();
 
 		if (campaignArray != null){
-			Log.d(TAG,"campaignArray ="+campaignArray.toString());
-			for (Campaign c : campaignArray) {
-				mData.add(new ExpandableListItem(c.getTitle(), c.getContent(),
-						CELL_DEFAULT_HEIGHT, c.getMessage()));
-			}
 
-			CustomArrayAdapter adapter = new CustomArrayAdapter(this, R.layout.list_view_item, mData);
+	        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+	        SlidingTabsColorsFragment fragment = new SlidingTabsColorsFragment();
 
-			mListView = (ExpandingListView)findViewById(R.id.detail_list_view);
-			mListView.setAdapter(adapter);
-			ColorDrawable blue = new ColorDrawable(this.getResources().getColor(R.color.radius_blue));
-			mListView.setDivider(blue);
-			mListView.setDividerHeight(2);
+	        
+	        //not working yet
+	        if (b != null && b.getString(KEY_CAMPAIGN_ID,"") != ""){
+	        	Log.d(TAG,"refreshing list with campaignId = "+b.getString(KEY_CAMPAIGN_ID,""));
+	            Bundle args = new Bundle();
+	            args.putString(KEY_CAMPAIGN_ID, b.getString(KEY_CAMPAIGN_ID,""));
+	        	fragment.setArguments(args);
+	        }
+	        
+	        transaction.replace(R.id.sample_content_fragment, fragment);
+	        transaction.commit();
+			
 		} else Log.e(TAG,"CAMPAIGNARRAY == NULL!");
 
+	}
+	
+	public ArrayList<Campaign> getCampaignArray(){
+		return ((MyApplication) this.getApplication()).getSightedCampaignArray();
 	}
 }

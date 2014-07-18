@@ -76,7 +76,7 @@ public class DetailActivity extends Activity {
 			mListView.setAdapter(adapter);
 			ColorDrawable blue = new ColorDrawable(this.getResources().getColor(R.color.radius_blue));
 			mListView.setDivider(blue);
-			mListView.setDividerHeight(1);
+			mListView.setDividerHeight(2);
 		} else Log.e(TAG,"CAMPAIGNARRAY == NULL!");
 
 	}

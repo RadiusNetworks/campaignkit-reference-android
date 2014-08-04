@@ -3,8 +3,6 @@ package com.radiusnetworks.campaignkitreference;
 
 import java.util.ArrayList;
 
-import com.example.android.common.activities.SampleActivityBase;
-import com.example.android.slidingtabsbasic.SlidingTabsBasicFragment;
 import com.example.android.slidingtabscolors.SlidingTabsColorsFragment;
 import com.radiusnetworks.campaignkitreference.R;
 import com.radiusnetworks.campaignkit.Campaign;

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListFragment;
 import android.os.Bundle;
 import android.widget.TableRow;
 
@@ -16,16 +15,11 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.radiusnetworks.campaignkitreference.DetailActivity;
 import com.radiusnetworks.campaignkitreference.MyApplication;
 import com.radiusnetworks.campaignkitreference.R;
-import com.radiusnetworks.campaignkit.Campaign;
-import com.radiusnetworks.proximity.ibeacon.IBeaconManager;
 
 /**
  * The Main <code>Activity</code> for the CampaignKit's Demo Client.
@@ -107,14 +101,10 @@ public class MainActivity extends Activity {
 		return false;
 	}
 	
-	
-	
-	
-
 	private void verifyBluetooth() {
 
 		try {
-			if (!IBeaconManager.getInstanceForApplication(this).checkAvailability()) {
+			if (!org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this).checkAvailability()) {
 				Log.e(TAG,"Bluetooth not enabled.");
 				final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				builder.setTitle("Bluetooth not enabled");			
@@ -156,68 +146,4 @@ public class MainActivity extends Activity {
 		}
 
 	}
-	
-	
-	/*
-
-	public static class SightedCampaignList extends ListFragment {
-
-		@Override
-		public void onActivityCreated(Bundle savedInstanceState) {
-			super.onActivityCreated(savedInstanceState);
-
-			setListAdapter(listAdapter);
-
-		}
-
-
-		@Override
-		public void onListItemClick(ListView l, View v, int position, long id) {
-			Log.i(TAG, "onListItem clicked. id: " + id+ ". position: "+position);
-			try {
-
-				((MainActivity) getActivity()).sendToDetailsScreen(position);
-
-			}catch(Exception e){e.printStackTrace();}
-		}
-	}
-
-	private void sendToDetailsScreen(int positionOnList){
-		sendToDetailsScreen( _application.getCampaignFromList(positionOnList));
-	}
-	
-	private void sendToDetailsScreen(Campaign c){
-		if (c != null){
-			Intent intent = new Intent();
-			intent.setClass(this, DetailActivity.class);
-			intent.putExtra("campaignId", c.getId());
-			startActivity(intent);
-		}
-	}
-
-
-	public void showRegistrationFailureNotification(final int status) {
-		Log.e(TAG,"didRegister. Error in Registration. status code = "+status);
-
-		runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-				final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-				builder.setTitle("Registration Error");			
-				builder.setMessage("status code = "+status);
-				builder.setPositiveButton(android.R.string.ok, null);
-				builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-					@Override
-					public void onDismiss(DialogInterface dialog) {
-						dialog.dismiss();
-					}					
-				});
-				builder.show();					
-			}
-		});			
-	}
-
-	
-*/
 }

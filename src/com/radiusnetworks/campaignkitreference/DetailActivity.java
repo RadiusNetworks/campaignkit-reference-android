@@ -1,23 +1,23 @@
 package com.radiusnetworks.campaignkitreference;
 
 
+import java.util.ArrayList;
+
+import com.example.android.common.activities.SampleActivityBase;
+import com.example.android.slidingtabsbasic.SlidingTabsBasicFragment;
+import com.example.android.slidingtabscolors.SlidingTabsColorsFragment;
 import com.radiusnetworks.campaignkitreference.R;
 import com.radiusnetworks.campaignkit.Campaign;
 
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.webkit.WebView;
 
-public class DetailActivity extends Activity {
+public class DetailActivity extends FragmentActivity {
 	protected static final String TAG = "DetailActivity";
-
-	//	int beaconPosition;
-	int dw = 0;
-	int dh = 0;
-	int height = 0;
-	int width = 0;
+	public static final String KEY_CAMPAIGN_ID = "campaignId";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,36 +26,47 @@ public class DetailActivity extends Activity {
 			setContentView(R.layout.activity_detail);
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 
-			// Getting campaignId
-			Bundle b = getIntent().getExtras();
-			String campaignId = b.getString("campaignId", "");
 			
-			Campaign thisCampaign = ((MyApplication) this.getApplication())._ckManager.getCampaign(campaignId);		
+			refreshList(getIntent().getExtras());
 
-			if (thisCampaign != null){
-				Log.d(TAG,"displaying campaign with id: "+campaignId);
-				
-				//Setting screen title
-				this.setTitle((String) thisCampaign.getTitle());
-				
-				//Setting screen content
-				WebView wv = (WebView) findViewById(R.id.contentWV);
-				wv.loadData(thisCampaign.getContent(), "text/html", null);
-			}
-			/*
-			beaconPosition = b.getInt("beaconPosition", 0);
-			if (MainActivity.listAdapter.getItem(beaconPosition) != null){
-				Log.d(TAG,"displaying beaconPosition = "+beaconPosition);
-
-				this.setTitle((String) MainActivity.listAdapter.getItem(beaconPosition));
-				if (MyApplication.sightedCampaignArray.get(beaconPosition) != null){
-					Campaign thisCampaign = MyApplication.sightedCampaignArray.get(beaconPosition);
-
-					displayHTMLContent(thisCampaign.getContent());
-
-				}
-			}
-			 */
+			
 		}catch(Exception e ){e.printStackTrace();}
+	}
+	
+	@Override 
+	public void onResume(){
+		super.onResume();
+		refreshList();
+	}
+	private void refreshList(){
+		refreshList(null);
+	}
+
+	private void refreshList(Bundle b){
+		ArrayList<Campaign> campaignArray =  ((MyApplication) this.getApplication()).getSightedCampaignArray();
+
+		if (campaignArray != null){
+
+	        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+	        SlidingTabsColorsFragment fragment = new SlidingTabsColorsFragment();
+
+	        
+	        //not working yet
+	        if (b != null && b.getString(KEY_CAMPAIGN_ID,"") != ""){
+	        	Log.d(TAG,"refreshing list with campaignId = "+b.getString(KEY_CAMPAIGN_ID,""));
+	            Bundle args = new Bundle();
+	            args.putString(KEY_CAMPAIGN_ID, b.getString(KEY_CAMPAIGN_ID,""));
+	        	fragment.setArguments(args);
+	        }
+	        
+	        transaction.replace(R.id.sample_content_fragment, fragment);
+	        transaction.commit();
+			
+		} else Log.e(TAG,"CAMPAIGNARRAY == NULL!");
+
+	}
+	
+	public ArrayList<Campaign> getCampaignArray(){
+		return ((MyApplication) this.getApplication()).getSightedCampaignArray();
 	}
 }

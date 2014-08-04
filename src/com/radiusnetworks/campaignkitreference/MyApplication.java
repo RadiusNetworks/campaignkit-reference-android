@@ -16,6 +16,7 @@ import com.radiusnetworks.campaignkitreference.R;
 import com.radiusnetworks.campaignkit.Campaign;
 import com.radiusnetworks.campaignkit.CampaignKitNotifier;
 import com.radiusnetworks.campaignkit.CampaignKitManager;
+import com.radiusnetworks.campaignkit.CampaignKitSyncException;
 import com.radiusnetworks.campaignkit.CampaignNotificationBuilder;
 
 import java.util.ArrayList;
@@ -73,8 +74,7 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 	}
 	
 	@Override
-	public void didFailSync(Exception e) {
-		// TODO Auto-generated method stub
+	public void didFailSync(CampaignKitSyncException e) {
 		Log.e(TAG,"didFailSync.");
 		if (e != null)
 			e.printStackTrace();
@@ -87,7 +87,7 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 	}
 
 	/**
-	 * Refreshes sightedCampaignTitles <code>Arraylist</code>.
+	 * Refreshes sightedCampaignTitles <code>Arraylist</code> and returns it.
 	 * @return refreshed sightedCampaignTitles <code>Arraylist</code>.
 	 */
 	public ArrayList<String> getSightedCampaignTitlesList(){
@@ -100,8 +100,12 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 		return sightedCampaignTitles;
 	}
 	
+	public ArrayList<Campaign> getSightedCampaignArray(){
+		return sightedCampaignArray;
+	}
+	
 	public Campaign getCampaignFromList(int positionOnList){
-		if (sightedCampaignArray != null){
+		if (sightedCampaignArray != null  &&  sightedCampaignArray.size() > positionOnList){
 			return sightedCampaignArray.get(positionOnList);
 		}
 		return null;
@@ -137,5 +141,7 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 			sightedCampaignArray.remove(d);
 		}
 	}
+
+
 
 }

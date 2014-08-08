@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
 				
 			}
 		});
-		findViewById(R.id.campaignsButton).setVisibility((areCampaignsSightedNow())? View.VISIBLE : View.GONE);
+		findViewById(R.id.campaignsButton).setVisibility((areCampaignsTriggeredNow())? View.VISIBLE : View.GONE);
 
 	}
 
@@ -81,20 +81,20 @@ public class MainActivity extends Activity {
 	public void refreshVisibleList() {
 		runOnUiThread(new Runnable() {
 			public void run() {
-				findViewById(R.id.campaignsButton).setVisibility((areCampaignsSightedNow())? View.VISIBLE : View.GONE);
+				findViewById(R.id.campaignsButton).setVisibility((areCampaignsTriggeredNow())? View.VISIBLE : View.GONE);
 			}
 		});
 	}
 
-	private boolean areCampaignsSightedNow(){
+	private boolean areCampaignsTriggeredNow(){
 		if (_application == null){
 			Log.d(TAG,"_application was null. initializing _application value");
 			_application = (MyApplication) this.getApplication();
 			_application.setMainActivity(this);
 		}
 		
-		if (_application.getSightedCampaignArray() != null && _application.getSightedCampaignArray().size() >0){
-			Log.d(TAG,"_application.getSightedCampaignArray().size() = "+_application.getSightedCampaignArray().size());
+		if (_application.getTriggeredCampaignArray() != null && _application.getTriggeredCampaignArray().size() >0){
+			Log.d(TAG,"_application.getTriggeredCampaignArray().size() = "+_application.getTriggeredCampaignArray().size());
 			return true;
 		}
 		

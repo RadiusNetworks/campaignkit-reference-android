@@ -122,7 +122,7 @@ public class SlidingTabsColorsFragment extends Fragment {
 
 
 		MyApplication app = ((MyApplication) this.getActivity().getApplication());
-		ArrayList<Campaign> campaignArray = app.getSightedCampaignArray();
+		ArrayList<Campaign> campaignArray = app.getTriggeredCampaignArray();
 
 		// BEGIN_INCLUDE (populate_tabs)
 
@@ -203,7 +203,7 @@ public class SlidingTabsColorsFragment extends Fragment {
 		// END_INCLUDE (setup_slidingtablayout)
 		
 		//NOT WORKING YET
-		//Sending to the specific Campaign that was sighted
+		//Sending to the specific Campaign that was triggered
 		try{
 			if (getArguments() != null){
 				String campaignId = getArguments().getString(DetailActivity.KEY_CAMPAIGN_ID,"");

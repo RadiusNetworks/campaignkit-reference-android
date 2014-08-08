@@ -41,7 +41,7 @@ public class DetailActivity extends FragmentActivity {
 	}
 
 	private void refreshList(Bundle b){
-		ArrayList<Campaign> campaignArray =  ((MyApplication) this.getApplication()).getSightedCampaignArray();
+		ArrayList<Campaign> campaignArray =  ((MyApplication) this.getApplication()).getTriggeredCampaignArray();
 
 		if (campaignArray != null){
 
@@ -65,6 +65,6 @@ public class DetailActivity extends FragmentActivity {
 	}
 	
 	public ArrayList<Campaign> getCampaignArray(){
-		return ((MyApplication) this.getApplication()).getSightedCampaignArray();
+		return ((MyApplication) this.getApplication()).getTriggeredCampaignArray();
 	}
 }

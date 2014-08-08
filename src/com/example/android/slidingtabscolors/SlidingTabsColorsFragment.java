@@ -18,12 +18,12 @@ package com.example.android.slidingtabscolors;
 
 import com.example.android.common.view.SlidingTabLayout;
 import com.radiusnetworks.campaignkit.Campaign;
-import com.radiusnetworks.campaignkitreference.DetailActivity;
-import com.radiusnetworks.campaignkitreference.MyApplication;
-import com.radiusnetworks.campaignkitreference.R;
-import com.radiusnetworks.campaignkitreference.R.id;
-import com.radiusnetworks.campaignkitreference.R.layout;
-import com.radiusnetworks.campaignkitreference.R.string;
+import com.radiusnetworks.radiusemployeeapp.DetailActivity;
+import com.radiusnetworks.radiusemployeeapp.MyApplication;
+import com.radiusnetworks.radiusemployeeapp.R;
+import com.radiusnetworks.radiusemployeeapp.R.id;
+import com.radiusnetworks.radiusemployeeapp.R.layout;
+import com.radiusnetworks.radiusemployeeapp.R.string;
 
 import android.content.Context;
 import android.graphics.Color;

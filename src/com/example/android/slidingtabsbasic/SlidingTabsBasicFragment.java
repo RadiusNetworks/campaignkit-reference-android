@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import com.example.android.common.logger.Log;
 import com.example.android.common.view.SlidingTabLayout;
 import com.radiusnetworks.campaignkit.Campaign;
-import com.radiusnetworks.campaignkitreference.DetailActivity;
-import com.radiusnetworks.campaignkitreference.MyApplication;
-import com.radiusnetworks.campaignkitreference.R;
+import com.radiusnetworks.radiusemployeeapp.DetailActivity;
+import com.radiusnetworks.radiusemployeeapp.MyApplication;
+import com.radiusnetworks.radiusemployeeapp.R;
 
 import android.content.Context;
 import android.os.Bundle;

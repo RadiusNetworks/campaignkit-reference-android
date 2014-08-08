@@ -17,9 +17,9 @@
 package com.example.android.slidingtabscolors;
 
 import com.example.android.common.logger.Log;
-import com.radiusnetworks.campaignkitreference.R;
-import com.radiusnetworks.campaignkitreference.R.id;
-import com.radiusnetworks.campaignkitreference.R.layout;
+import com.radiusnetworks.radiusemployeeapp.R;
+import com.radiusnetworks.radiusemployeeapp.R.id;
+import com.radiusnetworks.radiusemployeeapp.R.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

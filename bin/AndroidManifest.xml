@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.radiusnetworks.campaignkitreference">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.radiusnetworks.radiusemployeeapp">
 
     <uses-sdk android:minSdkVersion="18" android:targetSdkVersion="19"/>
 
@@ -12,8 +12,8 @@
     <!-- gives permission to wake up app long enough to send campaign request while app is in background (every 5 min) -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     
-    <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="com.radiusnetworks.campaignkitreference.MyApplication" android:theme="@style/AppTheme">
-        <activity android:label="@string/app_name" android:name="com.radiusnetworks.campaignkitreference.MainActivity" android:screenOrientation="portrait">
+    <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="com.radiusnetworks.radiusemployeeapp.MyApplication" android:theme="@style/AppTheme">
+        <activity android:label="@string/app_name" android:name="com.radiusnetworks.radiusemployeeapp.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -22,7 +22,7 @@
         </activity>
         
         
-        <activity android:label="@string/title_activity_detail" android:name="com.radiusnetworks.campaignkitreference.DetailActivity" android:parentActivityName="com.radiusnetworks.campaignkitreference.MainActivity" android:screenOrientation="portrait">
+        <activity android:label="@string/title_activity_detail" android:name="com.radiusnetworks.radiusemployeeapp.DetailActivity" android:parentActivityName="com.radiusnetworks.radiusemployeeapp.MainActivity" android:screenOrientation="portrait">
         </activity>
 
     

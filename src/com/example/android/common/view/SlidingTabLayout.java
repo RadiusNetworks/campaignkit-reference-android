@@ -16,12 +16,25 @@
 
 package com.example.android.common.view;
 
+import java.util.ArrayList;
+
+import com.radiusnetworks.campaignkit.Campaign;
+import com.radiusnetworks.campaignkitreference.DetailActivity;
+import com.radiusnetworks.campaignkitreference.MyApplication;
+import com.example.android.slidingtabsbasic.*;
+
+import android.R;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -47,268 +60,321 @@ import android.widget.TextView;
  */
 public class SlidingTabLayout extends HorizontalScrollView {
 
-    /**
-     * Allows complete control over the colors drawn in the tab layout. Set with
-     * {@link #setCustomTabColorizer(TabColorizer)}.
-     */
-    public interface TabColorizer {
+	/**
+	 * Allows complete control over the colors drawn in the tab layout. Set with
+	 * {@link #setCustomTabColorizer(TabColorizer)}.
+	 */
+	public interface TabColorizer {
 
-        /**
-         * @return return the color of the indicator used when {@code position} is selected.
-         */
-        int getIndicatorColor(int position);
+		/**
+		 * @return return the color of the indicator used when {@code position} is selected.
+		 */
+		int getIndicatorColor(int position);
 
-        /**
-         * @return return the color of the divider drawn to the right of {@code position}.
-         */
-        int getDividerColor(int position);
+		/**
+		 * @return return the color of the divider drawn to the right of {@code position}.
+		 */
+		int getDividerColor(int position);
 
-    }
+	}
 
-    private static final int TITLE_OFFSET_DIPS = 24;
-    private static final int TAB_VIEW_PADDING_DIPS = 16;
-    private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
+	private static final int TITLE_OFFSET_DIPS = 24;
+	private static final int TAB_VIEW_PADDING_DIPS = 16;
+	private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
 
-    private int mTitleOffset;
+	private int mTitleOffset;
 
-    private int mTabViewLayoutId;
-    private int mTabViewTextViewId;
+	private int mTabViewLayoutId;
+	private int mTabViewTextViewId;
 
-    private ViewPager mViewPager;
-    private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
+	private ViewPager mViewPager;
+	private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
 
-    private final SlidingTabStrip mTabStrip;
+	private Context _context;
 
-    public SlidingTabLayout(Context context) {
-        this(context, null);
-    }
+	private final SlidingTabStrip mTabStrip;
 
-    public SlidingTabLayout(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
+	public SlidingTabLayout(Context context) {
+		this(context, null);
+	}
 
-    public SlidingTabLayout(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+	public SlidingTabLayout(Context context, AttributeSet attrs) {
+		this(context, attrs, 0);
+	}
 
-        // Disable the Scroll Bar
-        setHorizontalScrollBarEnabled(false);
-        // Make sure that the Tab Strips fills this View
-        setFillViewport(true);
+	public SlidingTabLayout(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		_context = context;
 
-        mTitleOffset = (int) (TITLE_OFFSET_DIPS * getResources().getDisplayMetrics().density);
+		// Disable the Scroll Bar
+		setHorizontalScrollBarEnabled(false);
+		// Make sure that the Tab Strips fills this View
+		setFillViewport(true);
 
-        mTabStrip = new SlidingTabStrip(context);
-        addView(mTabStrip, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-    }
+		mTitleOffset = (int) (TITLE_OFFSET_DIPS * getResources().getDisplayMetrics().density);
 
-    /**
-     * Set the custom {@link TabColorizer} to be used.
-     *
-     * If you only require simple custmisation then you can use
-     * {@link #setSelectedIndicatorColors(int...)} and {@link #setDividerColors(int...)} to achieve
-     * similar effects.
-     */
-    public void setCustomTabColorizer(TabColorizer tabColorizer) {
-        mTabStrip.setCustomTabColorizer(tabColorizer);
-    }
+		mTabStrip = new SlidingTabStrip(context);
+		addView(mTabStrip, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+	}
 
-    /**
-     * Sets the colors to be used for indicating the selected tab. These colors are treated as a
-     * circular array. Providing one color will mean that all tabs are indicated with the same color.
-     */
-    public void setSelectedIndicatorColors(int... colors) {
-        mTabStrip.setSelectedIndicatorColors(colors);
-    }
+	/**
+	 * Set the custom {@link TabColorizer} to be used.
+	 *
+	 * If you only require simple custmisation then you can use
+	 * {@link #setSelectedIndicatorColors(int...)} and {@link #setDividerColors(int...)} to achieve
+	 * similar effects.
+	 */
+	public void setCustomTabColorizer(TabColorizer tabColorizer) {
+		mTabStrip.setCustomTabColorizer(tabColorizer);
+	}
 
-    /**
-     * Sets the colors to be used for tab dividers. These colors are treated as a circular array.
-     * Providing one color will mean that all tabs are indicated with the same color.
-     */
-    public void setDividerColors(int... colors) {
-        mTabStrip.setDividerColors(colors);
-    }
+	/**
+	 * Sets the colors to be used for indicating the selected tab. These colors are treated as a
+	 * circular array. Providing one color will mean that all tabs are indicated with the same color.
+	 */
+	public void setSelectedIndicatorColors(int... colors) {
+		mTabStrip.setSelectedIndicatorColors(colors);
+	}
 
-    /**
-     * Set the {@link ViewPager.OnPageChangeListener}. When using {@link SlidingTabLayout} you are
-     * required to set any {@link ViewPager.OnPageChangeListener} through this method. This is so
-     * that the layout can update it's scroll position correctly.
-     *
-     * @see ViewPager#setOnPageChangeListener(ViewPager.OnPageChangeListener)
-     */
-    public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
-        mViewPagerPageChangeListener = listener;
-    }
+	/**
+	 * Sets the colors to be used for tab dividers. These colors are treated as a circular array.
+	 * Providing one color will mean that all tabs are indicated with the same color.
+	 */
+	public void setDividerColors(int... colors) {
+		mTabStrip.setDividerColors(colors);
+	}
 
-    /**
-     * Set the custom layout to be inflated for the tab views.
-     *
-     * @param layoutResId Layout id to be inflated
-     * @param textViewId id of the {@link TextView} in the inflated view
-     */
-    public void setCustomTabView(int layoutResId, int textViewId) {
-        mTabViewLayoutId = layoutResId;
-        mTabViewTextViewId = textViewId;
-    }
+	/**
+	 * Set the {@link ViewPager.OnPageChangeListener}. When using {@link SlidingTabLayout} you are
+	 * required to set any {@link ViewPager.OnPageChangeListener} through this method. This is so
+	 * that the layout can update it's scroll position correctly.
+	 *
+	 * @see ViewPager#setOnPageChangeListener(ViewPager.OnPageChangeListener)
+	 */
+	public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
+		mViewPagerPageChangeListener = listener;
+	}
 
-    /**
-     * Sets the associated view pager. Note that the assumption here is that the pager content
-     * (number of tabs and tab titles) does not change after this call has been made.
-     */
-    public void setViewPager(ViewPager viewPager) {
-        mTabStrip.removeAllViews();
+	/**
+	 * Set the custom layout to be inflated for the tab views.
+	 *
+	 * @param layoutResId Layout id to be inflated
+	 * @param textViewId id of the {@link TextView} in the inflated view
+	 */
+	public void setCustomTabView(int layoutResId, int textViewId) {
+		mTabViewLayoutId = layoutResId;
+		mTabViewTextViewId = textViewId;
+	}
 
-        mViewPager = viewPager;
-        if (viewPager != null) {
-            viewPager.setOnPageChangeListener(new InternalViewPagerListener());
-            populateTabStrip();
-        }
-    }
+	/**
+	 * Sets the associated view pager. Note that the assumption here is that the pager content
+	 * (number of tabs and tab titles) does not change after this call has been made.
+	 */
+	public void setViewPager(ViewPager viewPager) {
+		mTabStrip.removeAllViews();
 
-    /**
-     * Create a default view to be used for tabs. This is called if a custom tab view is not set via
-     * {@link #setCustomTabView(int, int)}.
-     */
-    protected TextView createDefaultTabView(Context context) {
-        TextView textView = new TextView(context);
-        textView.setGravity(Gravity.CENTER);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
-        textView.setTypeface(Typeface.DEFAULT_BOLD);
+		mViewPager = viewPager;
+		if (viewPager != null) {
+			viewPager.setOnPageChangeListener(new InternalViewPagerListener());
+			populateTabStrip();
+		}
+	}
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // If we're running on Honeycomb or newer, then we can use the Theme's
-            // selectableItemBackground to ensure that the View has a pressed state
-            TypedValue outValue = new TypedValue();
-            getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground,
-                    outValue, true);
-            textView.setBackgroundResource(outValue.resourceId);
-        }
+	/**
+	 * Create a default view to be used for tabs. This is called if a custom tab view is not set via
+	 * {@link #setCustomTabView(int, int)}.
+	 */
+	protected TextView createDefaultTabView(Context context) {
+		TextView textView = new TextView(context);
+		textView.setGravity(Gravity.CENTER);
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
+		textView.setTypeface(Typeface.DEFAULT_BOLD);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            // If we're running on ICS or newer, enable all-caps to match the Action Bar tab style
-            textView.setAllCaps(true);
-        }
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			// If we're running on Honeycomb or newer, then we can use the Theme's
+			// selectableItemBackground to ensure that the View has a pressed state
+			TypedValue outValue = new TypedValue();
+			getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground,
+					outValue, true);
+			textView.setBackgroundResource(outValue.resourceId);
+		}
 
-        int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
-        textView.setPadding(padding, padding, padding, padding);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			// If we're running on ICS or newer, enable all-caps to match the Action Bar tab style
+			textView.setAllCaps(true);
+		}
 
-        return textView;
-    }
+		int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
+		textView.setPadding(padding, padding, padding, padding);
 
-    private void populateTabStrip() {
-        final PagerAdapter adapter = mViewPager.getAdapter();
-        final View.OnClickListener tabClickListener = new TabClickListener();
+		return textView;
+	}
 
-        for (int i = 0; i < adapter.getCount(); i++) {
-            View tabView = null;
-            TextView tabTitleView = null;
+	private void populateTabStrip() {
+		final PagerAdapter adapter = mViewPager.getAdapter();
+		final View.OnClickListener tabClickListener = new TabClickListener();
+		final View.OnLongClickListener tabLongClickListener = new TabLongClickListener();
 
-            if (mTabViewLayoutId != 0) {
-                // If there is a custom tab view layout id set, try and inflate it
-                tabView = LayoutInflater.from(getContext()).inflate(mTabViewLayoutId, mTabStrip,
-                        false);
-                tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
-            }
+		for (int i = 0; i < adapter.getCount(); i++) {
+			View tabView = null;
+			TextView tabTitleView = null;
 
-            if (tabView == null) {
-                tabView = createDefaultTabView(getContext());
-            }
+			if (mTabViewLayoutId != 0) {
+				// If there is a custom tab view layout id set, try and inflate it
+				tabView = LayoutInflater.from(getContext()).inflate(mTabViewLayoutId, mTabStrip,
+						false);
+				tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
+			}
 
-            if (tabTitleView == null && TextView.class.isInstance(tabView)) {
-                tabTitleView = (TextView) tabView;
-            }
+			if (tabView == null) {
+				tabView = createDefaultTabView(getContext());
+			}
 
-            tabTitleView.setText(adapter.getPageTitle(i));
-            tabView.setOnClickListener(tabClickListener);
+			if (tabTitleView == null && TextView.class.isInstance(tabView)) {
+				tabTitleView = (TextView) tabView;
+			}
 
-            mTabStrip.addView(tabView);
-        }
-    }
+			tabTitleView.setText(adapter.getPageTitle(i));
+			tabView.setOnClickListener(tabClickListener);
+			tabView.setOnLongClickListener(tabLongClickListener);
+			tabView.setLongClickable(true);
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
+			mTabStrip.addView(tabView);
+		}
+	}
 
-        if (mViewPager != null) {
-            scrollToTab(mViewPager.getCurrentItem(), 0);
-        }
-    }
+	@Override
+	protected void onAttachedToWindow() {
+		super.onAttachedToWindow();
 
-    private void scrollToTab(int tabIndex, int positionOffset) {
-        final int tabStripChildCount = mTabStrip.getChildCount();
-        if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
-            return;
-        }
+		if (mViewPager != null) {
+			scrollToTab(mViewPager.getCurrentItem(), 0);
+		}
+	}
 
-        View selectedChild = mTabStrip.getChildAt(tabIndex);
-        if (selectedChild != null) {
-            int targetScrollX = selectedChild.getLeft() + positionOffset;
+	private void scrollToTab(int tabIndex, int positionOffset) {
+		final int tabStripChildCount = mTabStrip.getChildCount();
+		if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
+			return;
+		}
 
-            if (tabIndex > 0 || positionOffset > 0) {
-                // If we're not at the first child and are mid-scroll, make sure we obey the offset
-                targetScrollX -= mTitleOffset;
-            }
+		View selectedChild = mTabStrip.getChildAt(tabIndex);
+		if (selectedChild != null) {
+			int targetScrollX = selectedChild.getLeft() + positionOffset;
 
-            scrollTo(targetScrollX, 0);
-        }
-    }
+			if (tabIndex > 0 || positionOffset > 0) {
+				// If we're not at the first child and are mid-scroll, make sure we obey the offset
+				targetScrollX -= mTitleOffset;
+			}
 
-    private class InternalViewPagerListener implements ViewPager.OnPageChangeListener {
-        private int mScrollState;
+			scrollTo(targetScrollX, 0);
+		}
+	}
 
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            int tabStripChildCount = mTabStrip.getChildCount();
-            if ((tabStripChildCount == 0) || (position < 0) || (position >= tabStripChildCount)) {
-                return;
-            }
+	private class InternalViewPagerListener implements ViewPager.OnPageChangeListener {
+		private int mScrollState;
 
-            mTabStrip.onViewPagerPageChanged(position, positionOffset);
+		@Override
+		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+			int tabStripChildCount = mTabStrip.getChildCount();
+			if ((tabStripChildCount == 0) || (position < 0) || (position >= tabStripChildCount)) {
+				return;
+			}
 
-            View selectedTitle = mTabStrip.getChildAt(position);
-            int extraOffset = (selectedTitle != null)
-                    ? (int) (positionOffset * selectedTitle.getWidth())
-                    : 0;
-            scrollToTab(position, extraOffset);
+			mTabStrip.onViewPagerPageChanged(position, positionOffset);
 
-            if (mViewPagerPageChangeListener != null) {
-                mViewPagerPageChangeListener.onPageScrolled(position, positionOffset,
-                        positionOffsetPixels);
-            }
-        }
+			View selectedTitle = mTabStrip.getChildAt(position);
+			int extraOffset = (selectedTitle != null)
+					? (int) (positionOffset * selectedTitle.getWidth())
+							: 0;
+					scrollToTab(position, extraOffset);
 
-        @Override
-        public void onPageScrollStateChanged(int state) {
-            mScrollState = state;
+					if (mViewPagerPageChangeListener != null) {
+						mViewPagerPageChangeListener.onPageScrolled(position, positionOffset,
+								positionOffsetPixels);
+					}
+		}
 
-            if (mViewPagerPageChangeListener != null) {
-                mViewPagerPageChangeListener.onPageScrollStateChanged(state);
-            }
-        }
+		@Override
+		public void onPageScrollStateChanged(int state) {
+			mScrollState = state;
 
-        @Override
-        public void onPageSelected(int position) {
-            if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
-                mTabStrip.onViewPagerPageChanged(position, 0f);
-                scrollToTab(position, 0);
-            }
+			if (mViewPagerPageChangeListener != null) {
+				mViewPagerPageChangeListener.onPageScrollStateChanged(state);
+			}
+		}
 
-            if (mViewPagerPageChangeListener != null) {
-                mViewPagerPageChangeListener.onPageSelected(position);
-            }
-        }
+		@Override
+		public void onPageSelected(int position) {
+			if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
+				mTabStrip.onViewPagerPageChanged(position, 0f);
+				scrollToTab(position, 0);
+			}
 
-    }
+			if (mViewPagerPageChangeListener != null) {
+				mViewPagerPageChangeListener.onPageSelected(position);
+			}
+		}
 
-    private class TabClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            for (int i = 0; i < mTabStrip.getChildCount(); i++) {
-                if (v == mTabStrip.getChildAt(i)) {
-                    mViewPager.setCurrentItem(i);
-                    return;
-                }
-            }
-        }
-    }
+	}
 
+	private class TabClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			Log.i("SlidingTabLayout","onClick");
+
+			for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+				if (v == mTabStrip.getChildAt(i)) {
+					mViewPager.setCurrentItem(i);
+					return;
+				}
+			}
+		}
+	}
+
+
+	private class TabLongClickListener implements View.OnLongClickListener {
+		
+
+		@Override
+		public boolean onLongClick(View v){
+			Log.i("SlidingTabLayout","onLongClick");
+
+			final View view = v;
+			final Resources r = _context.getResources();
+			((Activity) _context).runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+
+					new AlertDialog.Builder(_context)
+					.setTitle("Delete Item")
+					.setMessage("Are you sure you want to delete this item?")
+					.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+
+							for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+								if (view == mTabStrip.getChildAt(i) && _context != null) {
+									
+									MyApplication app = ((MyApplication) ((Activity) _context).getApplication());
+									app.removeCampaign(i);
+									((DetailActivity) _context).refreshList();
+									//TODO: if no campaigns left on list, go back to MainActivity.
+									if (app.getTriggeredCampaignArray().size() == 0)
+										((Activity)_context).finish();
+								}
+							}
+						}					
+					})
+					.setNegativeButton(android.R.string.cancel, null)
+					.show();		
+				}});
+
+			return true;
+
+		}
+	}
 }

@@ -116,4 +116,11 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 			Log.d(TAG, "Main activity not started yet.");
 		}
 	}
+	
+	public void removeCampaign(int position){
+		_ckManager.removeCampaign(getCampaignFromList(position));
+		triggeredCampaignArray.clear();
+		triggeredCampaignArray = _ckManager.getAllCampaigns();
+		refreshMainActivityList();
+	}
 }

@@ -16,11 +16,14 @@ import android.util.Log;
 public class DetailActivity extends FragmentActivity {
 	protected static final String TAG = "DetailActivity";
 	public static final String KEY_CAMPAIGN_ID = "campaignId";
+	
+	private DetailActivity _instance;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		try{
+			_instance = this;
 			setContentView(R.layout.activity_detail);
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -36,18 +39,18 @@ public class DetailActivity extends FragmentActivity {
 		super.onResume();
 		refreshList();
 	}
-	private void refreshList(){
+		
+	public void refreshList(){
 		refreshList(null);
 	}
 
 	private void refreshList(Bundle b){
-		ArrayList<Campaign> campaignArray =  ((MyApplication) this.getApplication()).getTriggeredCampaignArray();
+		ArrayList<Campaign> campaignArray =  getCampaignArray();
 
 		if (campaignArray != null){
 
 	        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 	        SlidingTabsColorsFragment fragment = new SlidingTabsColorsFragment();
-
 	        
 	        //not working yet
 	        if (b != null && b.getString(KEY_CAMPAIGN_ID,"") != ""){
@@ -67,4 +70,5 @@ public class DetailActivity extends FragmentActivity {
 	public ArrayList<Campaign> getCampaignArray(){
 		return ((MyApplication) this.getApplication()).getTriggeredCampaignArray();
 	}
+	
 }

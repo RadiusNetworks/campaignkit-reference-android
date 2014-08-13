@@ -24,12 +24,13 @@
         
         <activity android:label="@string/title_activity_detail" android:name="com.radiusnetworks.campaignkitreference.DetailActivity" android:parentActivityName="com.radiusnetworks.campaignkitreference.MainActivity" android:screenOrientation="portrait">
         </activity>
-
-    
       <service android:enabled="true" android:exported="true" android:isolatedProcess="false" android:label="beacon" android:name="org.altbeacon.beacon.service.BeaconService">
       </service>
 
       <service android:enabled="true" android:name="org.altbeacon.beacon.BeaconIntentProcessor">
+      </service>
+
+      <service android:enabled="true" android:exported="true" android:name="com.radiusnetworks.proximity.geofence.GeofenceService">
       </service>
     <receiver android:name="org.altbeacon.beacon.startup.StartupBroadcastReceiver">
         <intent-filter>
@@ -38,6 +39,7 @@
             <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
         </intent-filter>
     </receiver>
+        <meta-data android:name="com.google.android.gms.version" android:value="4452000"/>
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 

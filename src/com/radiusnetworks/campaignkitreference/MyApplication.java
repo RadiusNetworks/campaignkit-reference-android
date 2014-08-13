@@ -10,6 +10,7 @@ import com.radiusnetworks.campaignkit.CampaignKitNotifier;
 import com.radiusnetworks.campaignkit.CampaignKitManager;
 import com.radiusnetworks.campaignkit.CampaignKitSyncException;
 import com.radiusnetworks.campaignkit.CampaignNotificationBuilder;
+import com.radiusnetworks.proximity.geofence.GooglePlayServicesException;
 
 import java.util.ArrayList;
 
@@ -37,15 +38,12 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 	public void onCreate() {
 		super.onCreate();
 
-		try{
 		_ckManager = CampaignKitManager.getInstanceForApplication(this);
-		} catch(Exception e){
-			e.printStackTrace();
-		}
+
 		try{
 			_ckManager.enableGeofences();
-		}catch(Exception e2){
-			e2.printStackTrace();
+		}catch(GooglePlayServicesException e){
+			e.printStackTrace();
 		}
 		_ckManager.start();
 		_ckManager.setNotifier(this);

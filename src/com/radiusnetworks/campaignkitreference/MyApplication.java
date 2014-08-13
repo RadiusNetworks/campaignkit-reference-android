@@ -37,7 +37,16 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 	public void onCreate() {
 		super.onCreate();
 
+		try{
 		_ckManager = CampaignKitManager.getInstanceForApplication(this);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		try{
+			_ckManager.enableGeofences();
+		}catch(Exception e2){
+			e2.printStackTrace();
+		}
 		_ckManager.start();
 		_ckManager.setNotifier(this);
 

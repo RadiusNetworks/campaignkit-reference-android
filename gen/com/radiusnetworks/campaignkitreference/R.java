@@ -11,11 +11,11 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int almost_clear=0x7f040001;
-        public static final int clear=0x7f040000;
-        public static final int radius_blue=0x7f040002;
-        public static final int radius_light_grey=0x7f040004;
-        public static final int radius_text_color=0x7f040003;
+        public static final int almost_clear=0x7f060001;
+        public static final int clear=0x7f060000;
+        public static final int radius_blue=0x7f060002;
+        public static final int radius_light_grey=0x7f060004;
+        public static final int radius_text_color=0x7f060003;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -25,8 +25,8 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f050000;
-        public static final int activity_vertical_margin=0x7f050001;
+        public static final int activity_horizontal_margin=0x7f070000;
+        public static final int activity_vertical_margin=0x7f070001;
     }
     public static final class drawable {
         public static final int blue_border=0x7f020000;
@@ -57,12 +57,57 @@ public final class R {
         public static final int main=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f060001;
-        public static final int app_name=0x7f060000;
-        public static final int title_activity_detail=0x7f060002;
+        public static final int action_settings=0x7f040027;
+        public static final int app_name=0x7f040000;
+        public static final int connection_error_code=0x7f040001;
+        public static final int connection_error_disabled=0x7f040002;
+        public static final int connection_error_internal=0x7f040003;
+        public static final int connection_error_invalid=0x7f040004;
+        public static final int connection_error_invalid_account=0x7f040005;
+        public static final int connection_error_license_check_failed=0x7f040006;
+        public static final int connection_error_message=0x7f040007;
+        public static final int connection_error_misconfigured=0x7f040008;
+        public static final int connection_error_missing=0x7f040009;
+        public static final int connection_error_needs_resolution=0x7f04000a;
+        public static final int connection_error_network=0x7f04000b;
+        public static final int connection_error_outdated=0x7f04000c;
+        public static final int connection_error_sign_in_required=0x7f04000d;
+        public static final int connection_error_unknown=0x7f04000e;
+        public static final int geofence_event_received=0x7f04000f;
+        public static final int geofence_manager_connected=0x7f040010;
+        public static final int geofence_manager_disconnected=0x7f040011;
+        public static final int geofence_transition_dwell=0x7f040012;
+        public static final int geofence_transition_entered=0x7f040013;
+        public static final int geofence_transition_error_detail=0x7f040014;
+        public static final int geofence_transition_exited=0x7f040015;
+        public static final int geofence_transition_invalid_type=0x7f040016;
+        public static final int geofence_transition_notification_text=0x7f040017;
+        public static final int geofence_transition_notification_title=0x7f040018;
+        public static final int geofence_transition_unknown=0x7f040019;
+        public static final int geofences_action_add=0x7f04001a;
+        public static final int geofences_action_add_fail=0x7f04001b;
+        public static final int geofences_action_add_success=0x7f04001c;
+        public static final int geofences_action_remove=0x7f04001d;
+        public static final int geofences_action_remove_fail=0x7f04001e;
+        public static final int geofences_action_remove_success=0x7f04001f;
+        public static final int google_play_service_available=0x7f040020;
+        public static final int google_play_services_dependency_missing=0x7f040021;
+        public static final int location_client_not_connected=0x7f040022;
+        public static final int play_services_version_exception=0x7f040023;
+        public static final int process_pending_action=0x7f040024;
+        public static final int process_pending_action_none=0x7f040025;
+        public static final int require_play_services_exception=0x7f040026;
+        public static final int title_activity_detail=0x7f040028;
     }
     public static final class style {
         /** 
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
+ API 11 theme customizations can go here. 
+ API 14 theme customizations can go here. 
+
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     
@@ -83,10 +128,11 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
-        /**  Application theme. 
+        public static final int AppBaseTheme=0x7f050000;
+        /**  All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f050001;
     }
 }

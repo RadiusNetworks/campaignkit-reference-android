@@ -1,6 +1,10 @@
 package com.radiusnetworks.campaignkitreference;
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 
 import com.radiusnetworks.campaignkitreference.MainActivity;
@@ -10,7 +14,9 @@ import com.radiusnetworks.campaignkit.CampaignKitNotifier;
 import com.radiusnetworks.campaignkit.CampaignKitManager;
 import com.radiusnetworks.campaignkit.CampaignKitSyncException;
 import com.radiusnetworks.campaignkit.CampaignNotificationBuilder;
-import com.radiusnetworks.proximity.geofence.GooglePlayServicesException;
+import com.radiusnetworks.campaignkit.Place;
+//import com.radiusnetworks.proximity.geofence.GooglePlayServicesException;
+
 
 import java.util.ArrayList;
 
@@ -39,12 +45,15 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 		super.onCreate();
 
 		_ckManager = CampaignKitManager.getInstanceForApplication(this);
-
+/*
 		try{
 			_ckManager.enableGeofences();
-		}catch(GooglePlayServicesException e){
+		}catch(GooglePlayServicesException gpse){
+			gpse.printStackTrace();
+		}catch(Exception e){
 			e.printStackTrace();
 		}
+		*/
 		_ckManager.start();
 		_ckManager.setNotifier(this);
 
@@ -52,6 +61,7 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 
 	@Override
 	public void didFindCampaign(Campaign campaign) {
+		Log.d(TAG,"didFindCampaign");
 		//adding Campaign to triggeredCampaignArray, this will force it to be shown on the triggeredCampaignList
 		triggeredCampaignArray.add(campaign);
 		//triggeredCampaignArray.clear();
@@ -62,7 +72,6 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 		.setSmallIcon(R.drawable.ic_launcher)
 		.setOnClickActivity(DetailActivity.class)
 		.show();
-		
 		//refreshing the visible list of campaigns
 		refreshMainActivityList();
 	}
@@ -81,6 +90,12 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 		
 	}
 
+	@Override
+	public void didDetectPlace(Place place, CKEventType event) {
+		Log.i(TAG,"didDetectPlace.  EventType: "+event.toString()+"  Place: "+place.toString());
+
+		
+	}
 	
 	public void setMainActivity(MainActivity _mainActivity) {
 		this._mainActivity = _mainActivity;
@@ -130,4 +145,5 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 		triggeredCampaignArray = _ckManager.getAllCampaigns();
 		refreshMainActivityList();
 	}
+
 }

@@ -160,7 +160,7 @@ public class SlidingTabsBasicFragment extends Fragment {
 
 			if (_campaignArray.get( position ) != null){
 				WebView contentView = (WebView) container.findViewById(R.id.contentWV);
-				contentView.loadData(_campaignArray.get( position ).getBody(),
+				contentView.loadData(_campaignArray.get( position ).getContent(),// .getBody(),
 						"text/html", null);  
 
 			} else Log.e("instantiateItem","campaign at position "+position+" = null");

@@ -129,7 +129,7 @@ public class SlidingTabsColorsFragment extends Fragment {
 		for (Campaign c : campaignArray){
 			mTabs.add(new SamplePagerItem(
 					c.getTitle(), // Title
-					c.getContent(),// c.getBody(), //HTML Content
+					c.getBody(), //HTML Content
 					Color.parseColor(getResources().getString(R.color.radius_blue)), // Indicator color
 					Color.parseColor(getResources().getString(R.color.radius_light_grey)) //  Divider color
 					));

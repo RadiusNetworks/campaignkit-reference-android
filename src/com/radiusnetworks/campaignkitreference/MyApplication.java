@@ -15,7 +15,7 @@ import com.radiusnetworks.campaignkit.CampaignKitManager;
 import com.radiusnetworks.campaignkit.CampaignKitSyncException;
 import com.radiusnetworks.campaignkit.CampaignNotificationBuilder;
 import com.radiusnetworks.campaignkit.Place;
-//import com.radiusnetworks.proximity.geofence.GooglePlayServicesException;
+import com.radiusnetworks.proximity.geofence.GooglePlayServicesException;
 
 
 import java.util.ArrayList;
@@ -45,17 +45,18 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 		super.onCreate();
 
 		_ckManager = CampaignKitManager.getInstanceForApplication(this);
-/*
+
 		try{
 			_ckManager.enableGeofences();
+			Log.i(TAG,"onCreate. geofences enabled.");
 		}catch(GooglePlayServicesException gpse){
 			gpse.printStackTrace();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		*/
-		_ckManager.start();
 		_ckManager.setNotifier(this);
+
+		_ckManager.start();
 
 	}
 

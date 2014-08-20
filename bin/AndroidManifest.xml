@@ -11,7 +11,7 @@
 
     <!-- gives permission to wake up app long enough to send campaign request while app is in background (every 5 min) -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    
+
     <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="com.radiusnetworks.campaignkitreference.MyApplication" android:theme="@style/AppTheme">
         <activity android:label="@string/app_name" android:name="com.radiusnetworks.campaignkitreference.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
@@ -20,10 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        
-        
         <activity android:label="@string/title_activity_detail" android:name="com.radiusnetworks.campaignkitreference.DetailActivity" android:parentActivityName="com.radiusnetworks.campaignkitreference.MainActivity" android:screenOrientation="portrait">
         </activity>
+
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
 
     
       <service android:enabled="true" android:exported="true" android:isolatedProcess="false" android:label="beacon" android:name="org.altbeacon.beacon.service.BeaconService">

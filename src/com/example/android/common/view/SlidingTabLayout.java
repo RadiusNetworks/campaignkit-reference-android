@@ -19,6 +19,7 @@ package com.example.android.common.view;
 import java.util.ArrayList;
 
 import com.radiusnetworks.campaignkit.Campaign;
+import com.radiusnetworks.campaignkit.CampaignKitNotifier;
 import com.radiusnetworks.campaignkitreference.DetailActivity;
 import com.radiusnetworks.campaignkitreference.MyApplication;
 import com.example.android.slidingtabsbasic.*;
@@ -253,6 +254,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 	}
 
 	private void scrollToTab(int tabIndex, int positionOffset) {
+		
 		final int tabStripChildCount = mTabStrip.getChildCount();
 		if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
 			return;
@@ -362,7 +364,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
 									MyApplication app = ((MyApplication) ((Activity) _context).getApplication());
 									app.removeCampaign(i);
 									((DetailActivity) _context).refreshList();
-									//TODO: if no campaigns left on list, go back to MainActivity.
+									
+									//if no campaigns left on list, go back to MainActivity.
 									if (app.getTriggeredCampaignArray().size() == 0)
 										((Activity)_context).finish();
 								}

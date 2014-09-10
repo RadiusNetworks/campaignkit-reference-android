@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.example.android.slidingtabscolors.SlidingTabsColorsFragment;
 import com.radiusnetworks.campaignkitreference.R;
 import com.radiusnetworks.campaignkit.Campaign;
+import com.radiusnetworks.campaignkit.CampaignKitNotifier;
 
 
 import android.os.Bundle;
@@ -30,7 +31,9 @@ public class DetailActivity extends FragmentActivity {
 			
 			refreshList(getIntent().getExtras());
 
-			
+			for (Campaign campaign : getCampaignArray()){
+				((MyApplication) this.getApplication()).recordAnalytics(CampaignKitNotifier.CKAnalyticsType.viewed, campaign);
+			}
 		}catch(Exception e ){e.printStackTrace();}
 	}
 	
@@ -49,7 +52,8 @@ public class DetailActivity extends FragmentActivity {
 
 		if (campaignArray != null){
 
-	        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		
+			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 	        SlidingTabsColorsFragment fragment = new SlidingTabsColorsFragment();
 	        
 	        //not working yet

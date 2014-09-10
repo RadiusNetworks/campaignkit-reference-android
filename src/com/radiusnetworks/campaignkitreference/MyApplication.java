@@ -12,7 +12,6 @@ import com.radiusnetworks.campaignkitreference.R;
 import com.radiusnetworks.campaignkit.Campaign;
 import com.radiusnetworks.campaignkit.CampaignKitNotifier;
 import com.radiusnetworks.campaignkit.CampaignKitManager;
-import com.radiusnetworks.campaignkit.CampaignKitSyncException;
 import com.radiusnetworks.campaignkit.CampaignNotificationBuilder;
 import com.radiusnetworks.campaignkit.Place;
 import com.radiusnetworks.proximity.geofence.GooglePlayServicesException;
@@ -62,7 +61,6 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 
 	@Override
 	public void didFindCampaign(Campaign campaign) {
-		Log.d(TAG,"didFindCampaign");
 		//adding Campaign to triggeredCampaignArray, this will force it to be shown on the triggeredCampaignList
 		triggeredCampaignArray.add(campaign);
 		//triggeredCampaignArray.clear();
@@ -84,7 +82,7 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 	}
 	
 	@Override
-	public void didFailSync(CampaignKitSyncException e) {
+	public void didFailSync(Exception e) {
 		Log.e(TAG,"didFailSync.");
 		if (e != null)
 			e.printStackTrace();
@@ -144,7 +142,33 @@ public class MyApplication extends Application implements CampaignKitNotifier {
 		_ckManager.removeCampaign(getCampaignFromList(position));
 		triggeredCampaignArray.clear();
 		triggeredCampaignArray = _ckManager.getAllCampaigns();
+		Log.d(TAG,"after removing. triggeredCampaignArray size = "+triggeredCampaignArray.size());
+
 		refreshMainActivityList();
 	}
+	
+
+    /**
+     * Records an analytics event that will be aggregated and reported within the Campaign Kit.
+     *
+     */
+    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, Campaign campaign, Place place){
+    	_ckManager.recordAnalytics(type, campaign, place);
+    }
+    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, String campaignId , String placeId){
+    	_ckManager.recordAnalytics(type, campaignId, placeId);
+    }
+    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, int campaignIdAsInt, int placeIdAsInt){
+    	_ckManager.recordAnalytics(type, campaignIdAsInt, placeIdAsInt);
+    }
+    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, Campaign campaign){
+    	_ckManager.recordAnalytics(type, campaign);
+    }
+    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, String campaignId){
+    	_ckManager.recordAnalytics(type, campaignId);
+    }
+    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, int campaignIdAsInt){
+    	_ckManager.recordAnalytics(type, campaignIdAsInt);
+    }
 
 }

@@ -24,23 +24,12 @@
         </activity>
 
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
-
-    
-      <service android:enabled="true" android:exported="true" android:isolatedProcess="false" android:label="beacon" android:name="org.altbeacon.beacon.service.BeaconService">
-      </service>
-
-      <service android:enabled="true" android:name="org.altbeacon.beacon.BeaconIntentProcessor">
-      </service>
-
-      <service android:enabled="true" android:exported="true" android:name="com.radiusnetworks.proximity.geofence.GeofenceService">
-      </service>
-    <receiver android:name="org.altbeacon.beacon.startup.StartupBroadcastReceiver">
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
-            <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
-        </intent-filter>
-    </receiver>
+        <service android:enabled="true" android:exported="true" android:isolatedProcess="false" android:label="beacon" android:name="org.altbeacon.beacon.service.BeaconService">
+        </service>
+        <service android:enabled="true" android:name="org.altbeacon.beacon.BeaconIntentProcessor">
+        </service>
+        <service android:enabled="true" android:exported="true" android:name="com.radiusnetworks.proximity.geofence.GeofenceService">
+        </service>
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 

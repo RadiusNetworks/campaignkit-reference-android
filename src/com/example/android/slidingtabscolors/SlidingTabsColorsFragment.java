@@ -18,6 +18,7 @@ package com.example.android.slidingtabscolors;
 
 import com.example.android.common.view.SlidingTabLayout;
 import com.radiusnetworks.campaignkit.Campaign;
+import com.radiusnetworks.campaignkit.CampaignKitNotifier;
 import com.radiusnetworks.campaignkitreference.DetailActivity;
 import com.radiusnetworks.campaignkitreference.MyApplication;
 import com.radiusnetworks.campaignkitreference.R;
@@ -25,6 +26,7 @@ import com.radiusnetworks.campaignkitreference.R.id;
 import com.radiusnetworks.campaignkitreference.R.layout;
 import com.radiusnetworks.campaignkitreference.R.string;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -115,18 +117,20 @@ public class SlidingTabsColorsFragment extends Fragment {
 	 * List of {@link SamplePagerItem} which represent this sample's tabs.
 	 */
 	private List<SamplePagerItem> mTabs = new ArrayList<SamplePagerItem>();
+	private ArrayList<Campaign> mCampaignArray;
+	private Activity mActivity;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
+		mActivity = this.getActivity();
 		MyApplication app = ((MyApplication) this.getActivity().getApplication());
-		ArrayList<Campaign> campaignArray = app.getTriggeredCampaignArray();
+		mCampaignArray = app.getTriggeredCampaignArray();
 
 		// BEGIN_INCLUDE (populate_tabs)
 
-		for (Campaign c : campaignArray){
+		for (Campaign c : mCampaignArray){
 			mTabs.add(new SamplePagerItem(
 					c.getTitle(), // Title
 					c.getBody(), //HTML Content
@@ -149,6 +153,8 @@ public class SlidingTabsColorsFragment extends Fragment {
 		return inflater.inflate(R.layout.fragment_sample, container, false);
 	}
 
+
+
 	// BEGIN_INCLUDE (fragment_onviewcreated)
 	/**
 	 * This is called after the {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} has finished.
@@ -162,6 +168,7 @@ public class SlidingTabsColorsFragment extends Fragment {
 	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
+		Log.i("SlidingTabsColorsFragment","ViewPager.onViewCreated: "+view);
 
 
 		// BEGIN_INCLUDE (setup_viewpager)
@@ -201,7 +208,7 @@ public class SlidingTabsColorsFragment extends Fragment {
 		});
 		// END_INCLUDE (tab_colorizer)
 		// END_INCLUDE (setup_slidingtablayout)
-		
+
 		//NOT WORKING YET
 		//Sending to the specific Campaign that was triggered
 		try{
@@ -213,7 +220,7 @@ public class SlidingTabsColorsFragment extends Fragment {
 		}
 		catch(NumberFormatException nfe){ nfe.printStackTrace(); }
 		catch(Exception e){ e.printStackTrace(); }
-		
+
 	}
 	// END_INCLUDE (fragment_onviewcreated)
 
@@ -238,6 +245,10 @@ public class SlidingTabsColorsFragment extends Fragment {
 		 */
 		@Override
 		public Fragment getItem(int i) {
+			Log.i("SlidingTabsColorsFragment","SampleFragmentPagerAdapter.getItem: "+i);
+			if (mActivity != null && mCampaignArray != null)
+				((MyApplication) mActivity.getApplication()).recordAnalytics(CampaignKitNotifier.CKAnalyticsType.viewed, mCampaignArray.get(i));
+
 			return mTabs.get(i).createFragment();
 		}
 
@@ -258,6 +269,7 @@ public class SlidingTabsColorsFragment extends Fragment {
 			return mTabs.get(position).getTitle();
 		}
 		// END_INCLUDE (pageradapter_getpagetitle)
+
 
 	}
 

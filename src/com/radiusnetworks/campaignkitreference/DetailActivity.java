@@ -31,9 +31,6 @@ public class DetailActivity extends FragmentActivity {
 			
 			refreshList(getIntent().getExtras());
 
-			for (Campaign campaign : getCampaignArray()){
-				((MyApplication) this.getApplication()).recordAnalytics(CampaignKitNotifier.CKAnalyticsType.viewed, campaign);
-			}
 		}catch(Exception e ){e.printStackTrace();}
 	}
 	

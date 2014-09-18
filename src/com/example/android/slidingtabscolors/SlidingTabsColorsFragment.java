@@ -245,10 +245,6 @@ public class SlidingTabsColorsFragment extends Fragment {
 		 */
 		@Override
 		public Fragment getItem(int i) {
-			Log.i("SlidingTabsColorsFragment","SampleFragmentPagerAdapter.getItem: "+i);
-			if (mActivity != null && mCampaignArray != null)
-				((MyApplication) mActivity.getApplication()).recordAnalytics(CampaignKitNotifier.CKAnalyticsType.viewed, mCampaignArray.get(i));
-
 			return mTabs.get(i).createFragment();
 		}
 
@@ -257,6 +253,18 @@ public class SlidingTabsColorsFragment extends Fragment {
 			return mTabs.size();
 		}
 
+		@Override
+		public void setPrimaryItem (ViewGroup container, int position, Object object) {
+			Log.i("SlidingTabsColorsFragment","SampleFragmentPagerAdapter.setPrimaryItem position = "+position);
+			if (mActivity != null && mCampaignArray != null && mCampaignArray.get(position) != null)
+				((MyApplication) mActivity.getApplication())
+				.recordAnalytics(CampaignKitNotifier.CKAnalyticsType.viewed, mCampaignArray.get(position));
+			else
+				Log.i("SlidingTabsColorsFragment","SampleFragmentPagerAdapter.what's null? mActivity="
+						+mActivity+". mCampaignArray="+mCampaignArray);
+
+			super.setPrimaryItem ( container,  position, object);
+		}
 		// BEGIN_INCLUDE (pageradapter_getpagetitle)
 		/**
 		 * Return the title of the item at {@code position}. This is important as what this method

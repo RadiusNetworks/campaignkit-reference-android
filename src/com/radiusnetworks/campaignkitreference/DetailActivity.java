@@ -9,6 +9,7 @@ import com.radiusnetworks.campaignkit.Campaign;
 import com.radiusnetworks.campaignkit.CampaignKitNotifier;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -29,7 +30,6 @@ public class DetailActivity extends FragmentActivity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 
 			
-			refreshList(getIntent().getExtras());
 
 		}catch(Exception e ){e.printStackTrace();}
 	}
@@ -37,9 +37,22 @@ public class DetailActivity extends FragmentActivity {
 	@Override 
 	public void onResume(){
 		super.onResume();
-		refreshList();
+		refreshList(getIntent().getExtras());
 	}
-		
+
+	/**
+	 * Called when the activity has been opened when it was already running.
+	 * In this case, this usually occurs when the user tapped on an alert created by CampaignNotificationBuilder.
+	 */
+	@Override
+	public void onNewIntent (Intent intent){		
+		Log.i(TAG,"onNewIntent.");
+        if (intent != null && intent.getExtras() != null && intent.getExtras().getString(KEY_CAMPAIGN_ID,"") != "") {
+           	Log.i(TAG,"onNewIntent. campaignId = "+intent.getExtras().getString(KEY_CAMPAIGN_ID,""));
+        	refreshList(intent.getExtras());
+        }
+
+	}
 	public void refreshList(){
 		refreshList(null);
 	}

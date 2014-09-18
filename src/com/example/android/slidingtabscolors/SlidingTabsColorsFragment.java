@@ -245,6 +245,13 @@ public class SlidingTabsColorsFragment extends Fragment {
 		 */
 		@Override
 		public Fragment getItem(int i) {
+			Log.i("SlidingTabsColorsFragment","SampleFragmentPagerAdapter.getItem position = "+i);
+			if (mActivity != null && mCampaignArray != null && mCampaignArray.get(i) != null)
+				((MyApplication) mActivity.getApplication())
+				.recordAnalytics(CampaignKitNotifier.CKAnalyticsType.viewed, mCampaignArray.get(i));
+			else
+				Log.i("SlidingTabsColorsFragment","SampleFragmentPagerAdapter.what's null? mActivity="
+						+mActivity+". mCampaignArray="+mCampaignArray);
 			return mTabs.get(i).createFragment();
 		}
 
@@ -256,12 +263,6 @@ public class SlidingTabsColorsFragment extends Fragment {
 		@Override
 		public void setPrimaryItem (ViewGroup container, int position, Object object) {
 			Log.i("SlidingTabsColorsFragment","SampleFragmentPagerAdapter.setPrimaryItem position = "+position);
-			if (mActivity != null && mCampaignArray != null && mCampaignArray.get(position) != null)
-				((MyApplication) mActivity.getApplication())
-				.recordAnalytics(CampaignKitNotifier.CKAnalyticsType.viewed, mCampaignArray.get(position));
-			else
-				Log.i("SlidingTabsColorsFragment","SampleFragmentPagerAdapter.what's null? mActivity="
-						+mActivity+". mCampaignArray="+mCampaignArray);
 
 			super.setPrimaryItem ( container,  position, object);
 		}

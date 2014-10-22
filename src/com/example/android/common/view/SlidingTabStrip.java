@@ -66,7 +66,7 @@ class SlidingTabStrip extends LinearLayout {
 
         TypedValue outValue = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorForeground, outValue, true);
-        final int themeForegroundColor =  outValue.data;
+        final int themeForegroundColor = outValue.data;
 
         mDefaultBottomBorderColor = setColorAlpha(themeForegroundColor,
                 DEFAULT_BOTTOM_BORDER_COLOR_ALPHA);
@@ -118,8 +118,7 @@ class SlidingTabStrip extends LinearLayout {
         final int height = getHeight();
         final int childCount = getChildCount();
         final int dividerHeightPx = (int) (Math.min(Math.max(0f, mDividerHeight), 1f) * height);
-        final SlidingTabLayout.TabColorizer tabColorizer = mCustomTabColorizer != null
-                ? mCustomTabColorizer
+        final SlidingTabLayout.TabColorizer tabColorizer = mCustomTabColorizer != null ? mCustomTabColorizer
                 : mDefaultTabColorizer;
 
         // Thick colored underline below the current selection
@@ -137,16 +136,16 @@ class SlidingTabStrip extends LinearLayout {
 
                 // Draw the selection partway between the tabs
                 View nextTitle = getChildAt(mSelectedPosition + 1);
-                left = (int) (mSelectionOffset * nextTitle.getLeft() +
-                        (1.0f - mSelectionOffset) * left);
-                right = (int) (mSelectionOffset * nextTitle.getRight() +
-                        (1.0f - mSelectionOffset) * right);
+                left = (int) (mSelectionOffset * nextTitle.getLeft() + (1.0f - mSelectionOffset)
+                        * left);
+                right = (int) (mSelectionOffset * nextTitle.getRight() + (1.0f - mSelectionOffset)
+                        * right);
             }
 
             mSelectedIndicatorPaint.setColor(color);
 
-            canvas.drawRect(left, height - mSelectedIndicatorThickness, right,
-                    height, mSelectedIndicatorPaint);
+            canvas.drawRect(left, height - mSelectedIndicatorThickness, right, height,
+                    mSelectedIndicatorPaint);
         }
 
         // Thin underline along the entire bottom edge
@@ -157,13 +156,14 @@ class SlidingTabStrip extends LinearLayout {
         for (int i = 0; i < childCount - 1; i++) {
             View child = getChildAt(i);
             mDividerPaint.setColor(tabColorizer.getDividerColor(i));
-            canvas.drawLine(child.getRight(), separatorTop, child.getRight(),
-                    separatorTop + dividerHeightPx, mDividerPaint);
+            canvas.drawLine(child.getRight(), separatorTop, child.getRight(), separatorTop
+                    + dividerHeightPx, mDividerPaint);
         }
     }
 
     /**
-     * Set the alpha value of the {@code color} to be the given {@code alpha} value.
+     * Set the alpha value of the {@code color} to be the given {@code alpha}
+     * value.
      */
     private static int setColorAlpha(int color, byte alpha) {
         return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
@@ -171,9 +171,10 @@ class SlidingTabStrip extends LinearLayout {
 
     /**
      * Blend {@code color1} and {@code color2} using the given ratio.
-     *
-     * @param ratio of which to blend. 1.0 will return {@code color1}, 0.5 will give an even blend,
-     *              0.0 will return {@code color2}.
+     * 
+     * @param ratio
+     *            of which to blend. 1.0 will return {@code color1}, 0.5 will
+     *            give an even blend, 0.0 will return {@code color2}.
      */
     private static int blendColors(int color1, int color2, float ratio) {
         final float inverseRation = 1f - ratio;

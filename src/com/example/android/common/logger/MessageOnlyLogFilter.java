@@ -16,9 +16,9 @@
 package com.example.android.common.logger;
 
 /**
- * Simple {@link LogNode} filter, removes everything except the message.
- * Useful for situations like on-screen log output where you don't want a lot of metadata displayed,
- * just easy-to-read message updates as they're happening.
+ * Simple {@link LogNode} filter, removes everything except the message. Useful
+ * for situations like on-screen log output where you don't want a lot of
+ * metadata displayed, just easy-to-read message updates as they're happening.
  */
 public class MessageOnlyLogFilter implements LogNode {
 
@@ -26,8 +26,9 @@ public class MessageOnlyLogFilter implements LogNode {
 
     /**
      * Takes the "next" LogNode as a parameter, to simplify chaining.
-     *
-     * @param next The next LogNode in the pipeline.
+     * 
+     * @param next
+     *            The next LogNode in the pipeline.
      */
     public MessageOnlyLogFilter(LogNode next) {
         mNext = next;

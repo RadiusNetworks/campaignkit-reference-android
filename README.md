@@ -7,11 +7,11 @@ This is a reference app for the Campaign Kit Library that is structured to run u
 
 #Requirements For Use
 
-* Campaign Kit Library ([download the .tar.gz file](https://github.com/RadiusNetworks/campaignkit-android/releases))
+* Campaign Kit Library ([download the .tar.gz file for the latest version](https://github.com/RadiusNetworks/campaignkit-android/releases))
 
 * Android API Level 18 or higher
 
-* Google Play Services library set as a dependency if using Geofencing features.
+* Google Play Services library [setup instructions here](https://developer.android.com/google/play-services/setup.html).
 
 * CampaignKit.properties file downloaded from campaignkit.radiusnetworks.com.
 

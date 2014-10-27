@@ -11,8 +11,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.radiusnetworks.campaignkitreference.MainActivity;
 import com.radiusnetworks.campaignkitreference.R;
 import com.radiusnetworks.campaignkit.Campaign;
@@ -177,31 +175,8 @@ public class MyApplication extends Application implements CampaignKitNotifier {
      * the Campaign Kit.
      * 
      */
-    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, Campaign campaign,
-            Place place) {
-        _ckManager.recordAnalytics(type, campaign, place);
-    }
-
-    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, String campaignId,
-            String placeId) {
-        _ckManager.recordAnalytics(type, campaignId, placeId);
-    }
-
-    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, int campaignIdAsInt,
-            int placeIdAsInt) {
-        _ckManager.recordAnalytics(type, campaignIdAsInt, placeIdAsInt);
-    }
-
-    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, Campaign campaign) {
-        _ckManager.recordAnalytics(type, campaign);
-    }
-
-    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, String campaignId) {
-        _ckManager.recordAnalytics(type, campaignId);
-    }
-
-    public void recordAnalytics(CampaignKitNotifier.CKAnalyticsType type, int campaignIdAsInt) {
-        _ckManager.recordAnalytics(type, campaignIdAsInt);
+    public boolean setCampaignViewed(Campaign campaign) {
+        return _ckManager.setCampaignViewed(campaign);
     }
 
 }

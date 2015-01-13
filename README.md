@@ -9,9 +9,11 @@ This is a reference app for the Campaign Kit Library that is structured to run u
 
 * Campaign Kit Library ([download the .tar.gz file for the latest version](https://github.com/RadiusNetworks/campaignkit-android/releases))
 
-* Android API Level 18 or higher
+* Android API Level 18 or higher to use AltBeacon features.
 
-* Google Play Services library [setup instructions here](https://developer.android.com/google/play-services/setup.html).
+* Android API Level 9 or higher to use Geofencing features.
+
+* Google Play Services library version 5.+ set as a dependency. [setup instructions here](https://developer.android.com/google/play-services/setup.html).
 
 * CampaignKit.properties file downloaded from campaignkit.radiusnetworks.com.
 

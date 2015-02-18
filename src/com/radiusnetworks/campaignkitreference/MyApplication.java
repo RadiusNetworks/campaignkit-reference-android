@@ -88,7 +88,7 @@ public class MyApplication extends Application implements CampaignKitNotifier {
         // shown on the triggeredCampaignList
         triggeredCampaignArray.add(campaign);
         // triggeredCampaignArray.clear();
-        // triggeredCampaignArray = _ckManager.getAllCampaigns();
+        // triggeredCampaignArray = _ckManager.getFoundCampaigns();
 
         // sending notification or alert, depending on whether app is in
         // background or foreground
@@ -164,7 +164,7 @@ public class MyApplication extends Application implements CampaignKitNotifier {
     public void removeCampaign(int position) {
         _ckManager.removeCampaign(getCampaignFromList(position));
         triggeredCampaignArray.clear();
-        triggeredCampaignArray = _ckManager.getAllCampaigns();
+        triggeredCampaignArray = _ckManager.getFoundCampaigns();
         Log.d(TAG, "after removing. triggeredCampaignArray size = " + triggeredCampaignArray.size());
 
         refreshMainActivityList();

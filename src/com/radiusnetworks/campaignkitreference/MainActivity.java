@@ -31,7 +31,7 @@ import com.radiusnetworks.campaignkitreference.R;
  * 
  * <p>
  * A <code>ListFragment</code> is utilized in this class to display campaigns
- * sent in from the CampaignKitManager.getCurrentCampaigns() method.
+ * sent in from the CampaignKitManager.getFoundCampaigns() method.
  * 
  * 
  * 

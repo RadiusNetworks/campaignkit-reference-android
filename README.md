@@ -1,21 +1,23 @@
 campaignkit-reference-android
 =============================
 
-This is a reference app for the Campaign Kit Library that is structured to run using the Eclipse Android Bundle. If you are using the Android Studio bundle, please use [this reference app instead](https://github.com/RadiusNetworks/campaignkit-reference-android-studio).
+This is a reference app for the Campaign Kit Library that is structured to run using the Eclipse Android Bundle. If you don't have Eclipse, or are using the Android Studio bundle, please use [this reference app instead](https://github.com/RadiusNetworks/campaignkit-reference-android-studio). 
 
 
 
-#Requirements For Use
 
-* Campaign Kit Library ([download the .tar.gz file for the latest version](https://github.com/RadiusNetworks/campaignkit-android/releases))
+#Requirements for use: 
+
+* Minimum Android API Level 7.
 
 * Android API Level 18 or higher to use AltBeacon features.
 
 * Android API Level 9 or higher to use Geofencing features.
 
-* Google Play Services library version 5.+ set as a dependency. [setup instructions here](https://developer.android.com/google/play-services/setup.html).
+* Google Play Services library set as a dependency. The library version must be within the range of 4.2 and 6.5.87.
 
 * CampaignKit.properties file downloaded from campaignkit.radiusnetworks.com.
+
 
 
 
@@ -23,7 +25,7 @@ This is a reference app for the Campaign Kit Library that is structured to run u
 
 * Double click the campaignkit-android.tar.gz file and place the 'campaignkit-android' folder into the same location as the campaignkit-reference-android project.
 
-* Open a current version of Eclipse ADT with Android SDK. If you don't have that yet, you can find it [here](https://developer.android.com/sdk/index.html).
+* Open a current version of Eclipse ADT with Android SDK.
 
 * Import the campaignkit-reference-android project, the campaignkit-android library, and the google-play-services_lib as 'Existing Android Code into Workspace'. If you don't have google-play-services_lib set up already, please refer to the [Google Setup docs](https://developer.android.com/google/play-services/setup.html) for the proper instructions.
 
